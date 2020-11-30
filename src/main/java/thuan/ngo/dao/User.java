@@ -9,20 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "USER")
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-@NoArgsConstructor
 public class User extends AbstractEntity {
 
 	@Column(name = "FIRST_NAME")
@@ -30,6 +23,9 @@ public class User extends AbstractEntity {
 	
 	@Column(name = "LAST_NAME")
 	private String lastName;
+	
+	@Column(name = "EMAIL")
+	private String email;
 	
 	@Column(name = "PASSWORD")
 	private String password;

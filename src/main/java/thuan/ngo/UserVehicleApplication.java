@@ -1,4 +1,4 @@
-package thuan.ngo.applicaition;
+package thuan.ngo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,13 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-@SpringBootApplication(scanBasePackages = "thuan.ngo.config")
-public class Application {
+@SpringBootApplication
+public class UserVehicleApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(Application.class);
+    private static Logger logger = LoggerFactory.getLogger(UserVehicleApplication.class);
 
     public static void main(String... args) {    	
-        ConfigurableApplicationContext ctx = SpringApplication.run(Application.class, args);
+        ConfigurableApplicationContext ctx = SpringApplication.run(UserVehicleApplication.class, args);
         ctx.registerShutdownHook();
         logger.debug("Application Started ...");
     }

@@ -1,4 +1,4 @@
-package test.config;
+package thuan.ngo.test;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
