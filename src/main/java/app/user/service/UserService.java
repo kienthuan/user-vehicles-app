@@ -1,10 +1,12 @@
 package app.user.service;
 
+import app.dao.User;
 import app.user.model.UserModel;
+import app.user.model.UserVehicleList;
 
 public interface UserService {
 
-	public void registerUser(UserModel userModel);
+	public UserModel registerUser(UserModel userModel);
 	
-	public UserModel findByEmailAndPassword(String email, String password);
+	public UserModel registerVehiclesWithUser(User userDao, UserVehicleList vehiclesList);
 }

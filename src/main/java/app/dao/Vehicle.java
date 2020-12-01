@@ -18,7 +18,10 @@ public class Vehicle extends AbstractEntity {
 	@Column(name = "NAME")
 	private String name;
 	
+	@Column(name = "VEHICLE_CODE")
+	private String vehicleCode;
+	
 	@ManyToOne
-	@JoinColumn(name = "USER_ID", nullable = false)
+	@JoinColumn(name = "USER_ID", nullable = true)
 	private User owner;
 }

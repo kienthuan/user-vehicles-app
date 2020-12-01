@@ -8,14 +8,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
+import app.dao.User;
 import app.exception.BusinessException;
-import app.user.service.UserService;
+import app.repo.UserRepo;
+import app.util.HashUtil;
 
 public class CustomUserAuthenticationProvider implements AuthenticationProvider {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	private UserService userService;
+	private UserRepo userRepo;
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -27,8 +29,8 @@ public class CustomUserAuthenticationProvider implements AuthenticationProvider 
 		String email = String.valueOf(authentication.getPrincipal());
 		String password = String.valueOf(authentication.getCredentials());
 		
-		userService.findByEmailAndPassword(email, password);
-		return new UsernamePasswordAuthenticationToken(email, password, null);
+		User user = userRepo.findByEmailAndPassword(email, HashUtil.hash(password)).orElseThrow(() -> new BusinessException("Login fail..."));
+		return new UsernamePasswordAuthenticationToken(user, "", null);
 	}
 
 	private boolean invalidUserName(Authentication auth) {
@@ -42,8 +44,8 @@ public class CustomUserAuthenticationProvider implements AuthenticationProvider 
 	}
 	
 	@Autowired
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setUserService(UserRepo userRepo) {
+		this.userRepo = userRepo;
 	}
 	
 	@Override

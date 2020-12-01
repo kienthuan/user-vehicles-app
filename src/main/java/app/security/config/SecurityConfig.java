@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		httpSecurity.authorizeRequests().antMatchers("/user/register").permitAll()
+		httpSecurity.authorizeRequests().antMatchers("/user/register", "/vehicle/register").permitAll()
 				.anyRequest().authenticated().and()
 				.httpBasic()
 				// configure cors

@@ -19,6 +19,9 @@ import lombok.ToString;
 @Setter
 @ToString(exclude = {"vehicles", "password"})
 public class User extends AbstractEntity {
+	
+	@Column(name = "USER_CODE")
+	private String userCode;
 
 	@Column(name = "FIRST_NAME")
 	private String firstName;
