@@ -8,7 +8,9 @@ import org.mapstruct.Mapping;
 import app.dao.Vehicle;
 import app.vehicle.model.VehicleModel;
 
-@Mapper(componentModel = "spring", uses = MapperHelper.class, imports = UUID.class)
+@Mapper(componentModel = "spring",
+	uses = {MapperHelper.class, MaintenanceMapper.class},
+	imports = UUID.class)
 public interface VehicleMapper {
 	
 	@Mapping(target = "id", ignore = true)
@@ -18,5 +20,6 @@ public interface VehicleMapper {
 	
 	@Mapping(source = "vehicleCode", target = "id")
 	@Mapping(source = "owner", target = "owner", qualifiedByName = "mapVehicleOwner")
+	@Mapping(source = "maintenances", target = "maintenanceHistory")
 	public VehicleModel toModel(Vehicle vehicleEntity);
 }

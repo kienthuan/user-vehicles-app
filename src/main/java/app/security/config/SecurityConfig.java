@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -22,6 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		httpSecurity.authorizeRequests()
+				.antMatchers("/h2/**").permitAll()
 				.anyRequest().authenticated().and()
 				.httpBasic()
 				// configure cors
@@ -29,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// no csrf needed
 				.and().csrf().disable();
 		httpSecurity.headers().frameOptions().disable();
+		
+		httpSecurity.addFilterAfter(new RequestHeaderLoggingFilter(), BasicAuthenticationFilter.class);
 	}
 
 	/**

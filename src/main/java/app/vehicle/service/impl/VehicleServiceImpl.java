@@ -32,6 +32,10 @@ public class VehicleServiceImpl implements VehicleService {
 					String errorMsg = String.format("Cannot find vehicle with id %s", vehicleCode);
 					return new BusinessException(errorMsg);
 				});
-		return vehicleMapper.toModel(foundVehicle);
+		VehicleModel result = vehicleMapper.toModel(foundVehicle);
+		
+		//no need to append vehicle id
+		result.getMaintenanceHistory().forEach(record -> record.setVehicleId(null));
+		return result;
 	}
 }

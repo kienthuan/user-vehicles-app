@@ -25,7 +25,6 @@ public class CustomUserAuthenticationProvider implements AuthenticationProvider 
 			logger.error("Invalid authentication...");
 			throw new BusinessException("Invalid authentication...");
 		}
-		
 		String email = String.valueOf(authentication.getPrincipal());
 		String password = String.valueOf(authentication.getCredentials());
 		

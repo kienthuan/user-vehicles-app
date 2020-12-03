@@ -23,10 +23,9 @@
 		</encoder>
 	</appender>
 
-    <logger name="thuan.ngo" level="debug"/>
+    <logger name="app" level="debug"/>
 
     <logger name="org.springframework" level="debug"/>
-    <logger name="org.springframework.test" level="debug"/>
 
     <root level="info">
         <appender-ref ref="console" />

@@ -15,18 +15,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import app.UserVehicleApplication;
 import app.dao.User;
 import app.dao.UserRoleEnum;
+import app.repo.MaintenanceRepo;
 import app.repo.UserRepo;
 import app.repo.VehicleRepo;
-import test.config.TestJpaDbConfig;
 
 @ActiveProfiles(value = "test")
-@SpringBootTest(classes = {UserVehicleApplication.class, TestJpaDbConfig.class})
+@SpringBootTest(classes = UserVehicleApplication.class)
 @AutoConfigureMockMvc
 public abstract class AbstractTest {
 	
@@ -38,6 +39,9 @@ public abstract class AbstractTest {
 	
 	@Autowired
 	protected VehicleRepo vehicleRepo;
+	
+	@Autowired
+	protected MaintenanceRepo maintenanceRepo;
 	
 	@Autowired
 	protected MockMvc mockMvc;
@@ -54,6 +58,7 @@ public abstract class AbstractTest {
 	
 	@AfterEach
 	public final void clearTestData() {
+		maintenanceRepo.deleteAll();
 		vehicleRepo.deleteAll();
 		userRepo.deleteAll();
 	}
@@ -72,6 +77,8 @@ public abstract class AbstractTest {
 	protected String objectToJson(Object object) {
 		try {
 			ObjectMapper jsonmapper = new ObjectMapper();
+			jsonmapper.setSerializationInclusion(Include.NON_NULL);
+			jsonmapper.setSerializationInclusion(Include.NON_EMPTY);
 			return jsonmapper.writeValueAsString(object);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -93,6 +100,8 @@ public abstract class AbstractTest {
 	protected <T> T jsonToObject(String json, Class<T> clazz) {
 		try {
 			ObjectMapper jsonmapper = new ObjectMapper();
+			jsonmapper.setSerializationInclusion(Include.NON_NULL);
+			jsonmapper.setSerializationInclusion(Include.NON_EMPTY);
 			return jsonmapper.readValue(json, clazz);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
