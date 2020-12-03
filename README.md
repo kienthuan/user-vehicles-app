@@ -40,7 +40,8 @@ INSERT INTO USER (USER_CODE , FIRST_NAME , LAST_NAME , EMAIL , PASSWORD , ROLE )
 	"vehicleList" : [
 		{
 			"id" : "b48eb457-2b50-419d-abee-7af50f4832e2",
-			"name":"Mazda 2003","owner":"test first name test last name","maintenanceHistory":[]}
+			"name":"Mazda 2003","owner":"test first name test last name","maintenanceHistory":[]
+		}
 	]
 }
 ```
@@ -55,6 +56,7 @@ INSERT INTO USER (USER_CODE , FIRST_NAME , LAST_NAME , EMAIL , PASSWORD , ROLE )
 }
 ```
 - PATCH `/user/vehicles`: Add vehicle(s) for user(s).
+
 **Request**: Map of user id and list of vehicle id.
 ```JSON
 {
@@ -79,6 +81,7 @@ INSERT INTO USER (USER_CODE , FIRST_NAME , LAST_NAME , EMAIL , PASSWORD , ROLE )
 }
 ```
 - PUT `/user/vehicles/owner`: Change vehicle(s) for user(s).
+
 **Request**: Map of user id and list of vehicle id.
 ```JSON
 {
