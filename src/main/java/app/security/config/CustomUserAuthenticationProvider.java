@@ -30,7 +30,7 @@ public class CustomUserAuthenticationProvider implements AuthenticationProvider 
 		String password = String.valueOf(authentication.getCredentials());
 		
 		User user = userRepo.findByEmailAndPassword(email, HashUtil.hash(password)).orElseThrow(() -> new BusinessException("Login fail..."));
-		return new UsernamePasswordAuthenticationToken(user, "", null);
+		return new CustomUserAuthentication(user);
 	}
 
 	private boolean invalidUserName(Authentication auth) {
@@ -50,6 +50,7 @@ public class CustomUserAuthenticationProvider implements AuthenticationProvider 
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return clazz.equals(UsernamePasswordAuthenticationToken.class);
+		return clazz.equals(UsernamePasswordAuthenticationToken.class) ||
+				clazz.equals(CustomUserAuthentication.class);
 	}
 }

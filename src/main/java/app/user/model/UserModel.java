@@ -1,10 +1,13 @@
 package app.user.model;
 
+import java.util.List;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import app.vehicle.model.VehicleModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,4 +30,6 @@ public class UserModel {
 	@NotBlank
 	@Email
 	private String email;
+	
+	private List<VehicleModel> vehicleList;
 }

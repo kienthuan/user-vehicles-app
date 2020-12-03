@@ -1,12 +1,18 @@
 package app.user.service;
 
-import app.dao.User;
+import java.util.List;
+
 import app.user.model.UserModel;
-import app.user.model.UserVehicleList;
+import app.user.model.AddVehicleList;
+import app.user.model.ChangeVehicleOwnerModel;
 
 public interface UserService {
 
+	public UserModel getUser(String userCode);
+	
 	public UserModel registerUser(UserModel userModel);
 	
-	public UserModel registerVehiclesWithUser(User userDao, UserVehicleList vehiclesList);
+	public UserModel changeOwnerShip(ChangeVehicleOwnerModel changeModel);
+	
+	public List<UserModel> registerVehiclesWithUser(AddVehicleList vehiclesList);
 }

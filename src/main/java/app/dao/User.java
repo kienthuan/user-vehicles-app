@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,6 +36,10 @@ public class User extends AbstractEntity {
 	
 	@Column(name = "PASSWORD")
 	private String password;
+	
+	@Column(name = "ROLE")
+	@Enumerated(EnumType.STRING)
+	private UserRoleEnum role;
 	
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "owner", fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles;

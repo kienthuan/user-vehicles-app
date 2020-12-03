@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.UnsupportedEncodingException;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,6 +19,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import app.UserVehicleApplication;
+import app.dao.User;
+import app.dao.UserRoleEnum;
 import app.repo.UserRepo;
 import app.repo.VehicleRepo;
 import test.config.TestJpaDbConfig;
@@ -26,6 +29,9 @@ import test.config.TestJpaDbConfig;
 @SpringBootTest(classes = {UserVehicleApplication.class, TestJpaDbConfig.class})
 @AutoConfigureMockMvc
 public abstract class AbstractTest {
+	
+	protected static final String ADMIN_PASSWORD = "123";
+	protected static final String ADMIN_EMAIL = "admin@gmail.com";
 
 	@Autowired
 	protected UserRepo userRepo;
@@ -38,12 +44,29 @@ public abstract class AbstractTest {
 
 	@BeforeEach
 	public final void initTest() {
+		clearTestData();
+		
 		assertNotNull(mockMvc);
 		assertNotNull(userRepo);
 		assertNotNull(vehicleRepo);
-		
+		initAdminUser();
+	}
+	
+	@AfterEach
+	public final void clearTestData() {
 		vehicleRepo.deleteAll();
 		userRepo.deleteAll();
+	}
+	
+	private void initAdminUser() {
+		User admin = new User();
+		admin.setUserCode("82c10c2d-1b62-4b53-a32f-4d3d671ee514");
+		admin.setFirstName("admin");
+		admin.setLastName("admin");
+		admin.setRole(UserRoleEnum.ROLE_ADMIN);
+		admin.setEmail("admin@gmail.com");
+		admin.setPassword("a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3");
+		userRepo.save(admin);
 	}
 	
 	protected String objectToJson(Object object) {

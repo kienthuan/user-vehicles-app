@@ -3,6 +3,7 @@ package app.exception;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +16,7 @@ import lombok.AllArgsConstructor;
 @ControllerAdvice
 @AllArgsConstructor
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
-	
+
 	private ApiErrorResponseMapper apiErrorResponseMapper;
 	
 	@Override
@@ -28,5 +29,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 	public ResponseEntity<ApiErrorResponse> businessExceptionHandler(BusinessException exception,
 			WebRequest request) {
 		return new ResponseEntity<>(apiErrorResponseMapper.toApiErrorResponse(exception), HttpStatus.BAD_REQUEST);
+	}
+	
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		ApiErrorResponse errorResp = new ApiErrorResponse();
+		errorResp.getErrorMessages().add("Request body is required");
+		return new ResponseEntity<>(errorResp, HttpStatus.BAD_REQUEST);
 	}
 }

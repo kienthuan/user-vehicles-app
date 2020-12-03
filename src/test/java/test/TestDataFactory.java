@@ -5,12 +5,16 @@ import app.vehicle.model.VehicleModel;
 
 public class TestDataFactory {
 
-	public static UserModel buildUserModel() {
+	public static UserModel buildUserModel() {	
+		return buildUserModel("test first name", "test last name", "test.user@gmail.com", "testpassword");
+	}
+	
+	public static UserModel buildUserModel(String firstName, String lastName, String email, String password) {
 		UserModel userModel = new UserModel();
-		userModel.setFirstName("test first name");
-		userModel.setLastName("test last name");
-		userModel.setEmail("test.user@gmail.com");
-		userModel.setPassword("testpassword");
+		userModel.setFirstName(firstName);
+		userModel.setLastName(lastName);
+		userModel.setEmail(email);
+		userModel.setPassword(password);
 		
 		return userModel;
 	}

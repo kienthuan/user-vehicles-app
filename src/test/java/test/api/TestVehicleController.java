@@ -1,6 +1,8 @@
 package test.api;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -16,7 +18,7 @@ import test.TestDataFactory;
 public class TestVehicleController extends AbstractTest {
 
 	@Test
-	public void testRegisterVehicle_With_AllData_ShouldOk() throws Exception {
+	public void testRegisterVehicle_With_AllData_ThenGet_ShouldOk() throws Exception {
 		VehicleModel vehicleRequest = TestDataFactory.buildVehicleModel();
 		ResultActions registerResult = this.mockMvc.perform(post("/vehicle/register")
 				.content(objectToJson(vehicleRequest))
@@ -26,5 +28,14 @@ public class TestVehicleController extends AbstractTest {
 		VehicleModel registerResponse = this.extractResponseAsObject(registerResult, VehicleModel.class);
 		assertNotNull(registerResponse);
 		assertNotNull(registerResponse.getId());
+		
+		ResultActions getResult = this.mockMvc.perform(get("/vehicle/" + registerResponse.getId()));
+		getResult.andDo(MockMvcResultHandlers.print()).andExpect(status().isOk());
+		
+		VehicleModel getResponse = this.extractResponseAsObject(getResult, VehicleModel.class);
+		assertNotNull(getResponse);
+		assertEquals(registerResponse.getId(), getResponse.getId());
+		assertEquals(registerResponse.getName(), getResponse.getName());
+		assertEquals("", getResponse.getOwner());
 	}
 }

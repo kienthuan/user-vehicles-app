@@ -12,6 +12,7 @@ import app.vehicle.model.VehicleModel;
 public interface VehicleMapper {
 	
 	@Mapping(target = "id", ignore = true)
+	@Mapping(target = "owner", ignore = true)
 	@Mapping(target = "vehicleCode", expression = "java(UUID.randomUUID().toString())")
 	public Vehicle toEntity(VehicleModel vehicleModel);
 	
