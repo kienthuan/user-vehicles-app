@@ -33,7 +33,7 @@ INSERT INTO USER (USER_CODE , FIRST_NAME , LAST_NAME , EMAIL , PASSWORD , ROLE )
 **Response**
 ```JSON
 {
-	"firstName" : "564e31d6-2d01-49f7-9c0f-29a8b38b2b27",
+	"id" : "564e31d6-2d01-49f7-9c0f-29a8b38b2b27",
 	"firstName" : "test first name",
 	"lastName" : "test last name",
 	"email" : "test.user@gmail.com",
@@ -66,7 +66,7 @@ INSERT INTO USER (USER_CODE , FIRST_NAME , LAST_NAME , EMAIL , PASSWORD , ROLE )
 **Response**
 ```JSON
 {
-	"firstName" : "564e31d6-2d01-49f7-9c0f-29a8b38b2b27",
+	"id" : "564e31d6-2d01-49f7-9c0f-29a8b38b2b27",
 	"firstName" : "test first name",
 	"lastName" : "test last name",
 	"email" : "test.user@gmail.com",
